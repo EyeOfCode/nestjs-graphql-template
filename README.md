@@ -6,5 +6,5 @@
 
 ## doc
 
-- ![TypeORM](https://typeorm.io/#/)
-- ![nestjs+graphql](https://docs.nestjs.com/graphql/quick-start)
+- [TypeORM](https://typeorm.io/#/)
+- [nestjs+graphql](https://docs.nestjs.com/graphql/quick-start)
