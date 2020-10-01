@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  main:
+    image: node:12
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres-ts
+    command: yarn start:dev:main
+  service:
+    image: node:12
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres-ts
+    command: yarn start:dev:service
+  # redis:
+  #   image: redis:5.0.3
+  #   restart: always
+  #   ports:
+  #     - 6379:6379
+  #   volumes:
+  #     - redis-data:/data
+  postgres-ts:
+    image: timescale/timescaledb:latest-pg12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata_ts:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  pgdata_ts:
+  # redis-data:
+  #   driver: local

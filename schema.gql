@@ -1,0 +1,70 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Company {
+  id: Float!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: [User!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  company: Company!
+}
+
+type Query {
+  users(input: UserQuery!): [User!]!
+  user(id: Float!): User!
+  companies(input: CompanyQuery!): [Company!]!
+  company(id: Float!): Company!
+}
+
+input UserQuery {
+  search: String
+  skip: Float
+  take: Float
+}
+
+input CompanyQuery {
+  search: String
+  skip: Float
+  take: Float
+}
+
+type Mutation {
+  updateUserById(id: Float!, input: UserUpdate!): User!
+  removeById(id: Float!): String!
+  createUser(companyId: Float!, input: UserInput!): User!
+  createCompany(input: CompanyInput!): Company!
+}
+
+input UserUpdate {
+  firstName: String
+  lastName: String
+  isActive: Boolean!
+}
+
+input UserInput {
+  email: String!
+  firstName: String
+  lastName: String
+  isActive: Boolean!
+}
+
+input CompanyInput {
+  name: String!
+}
