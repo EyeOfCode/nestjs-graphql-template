@@ -21,13 +21,15 @@ services:
     depends_on:
       - postgres-ts
     command: yarn start:dev:service
-  # redis:
-  #   image: redis:5.0.3
-  #   restart: always
-  #   ports:
-  #     - 6379:6379
-  #   volumes:
-  #     - redis-data:/data
+
+  redis:
+    image: redis:5.0.3
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+
   postgres-ts:
     image: timescale/timescaledb:latest-pg12
     environment:
@@ -39,7 +41,12 @@ services:
       - pgdata_ts:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    ports:
+      - 15672:15672
 volumes:
   pgdata_ts:
-  # redis-data:
-  #   driver: local
+  redis-data:
+    driver: local

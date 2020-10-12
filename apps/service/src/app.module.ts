@@ -5,6 +5,7 @@ import { join } from 'path';
 
 import { UserModule } from './module/user/users.module';
 import { CompanyModule } from './module/company/companys.module';
+import { MicroModule } from './module/micro/micro.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'entity/user.entity';
@@ -29,6 +30,7 @@ import { Company } from 'entity/company.entity';
     }),
     UserModule,
     CompanyModule,
+    MicroModule,
   ],
   providers: [AppService],
 })
