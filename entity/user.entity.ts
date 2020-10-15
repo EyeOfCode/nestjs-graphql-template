@@ -1,25 +1,23 @@
-import { ObjectType, Field, GraphQLISODateTime, ID } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Company } from './company.entity';
+import { BaseEntity } from './base.entity';
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  CreateDateColumn,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
 
-@ObjectType()
+@ObjectType({ implements: [BaseEntity] })
 @Entity()
-export class User {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn()
-  readonly id?: number;
+export class User extends BaseEntity {
+  @Field()
+  @Column({ nullable: true, unique: true })
+  email: string;
 
   @Field()
-  @Column({ nullable: true })
-  email: string;
+  @Column()
+  password: string;
 
   @Field()
   @Column()
@@ -33,14 +31,6 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @Field(() => GraphQLISODateTime)
-  @CreateDateColumn({ nullable: false, name: 'created_at' })
-  readonly createdAt: Date;
-
-  @Field(() => GraphQLISODateTime)
-  @UpdateDateColumn({ nullable: false, name: 'updated_at' })
-  readonly updatedAt: Date;
-
   @Field(() => Company)
   @ManyToOne(
     () => Company,
@@ -48,10 +38,4 @@ export class User {
   )
   @JoinColumn()
   company: Company;
-}
-
-@ObjectType()
-export class OneUser {
-  @Field({ nullable: true })
-  data?: User;
 }

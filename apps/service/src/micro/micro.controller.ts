@@ -1,5 +1,4 @@
 import { Controller, Get } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { MicroService } from './micro.service';
 
 @Controller('micro')
