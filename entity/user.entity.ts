@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @ObjectType({ implements: [BaseEntity] })
 @Entity()
@@ -16,6 +17,7 @@ export class User extends BaseEntity {
   email: string;
 
   @Field()
+  @Exclude()
   @Column()
   password: string;
 
@@ -38,4 +40,9 @@ export class User extends BaseEntity {
   )
   @JoinColumn()
   company: Company;
+
+  constructor(partial: Partial<User>) {
+    super()
+    Object.assign(this, partial);
+  }
 }

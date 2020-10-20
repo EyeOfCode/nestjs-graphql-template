@@ -27,6 +27,7 @@ export class AuthService {
 
         const accessToken = await this.jwtService.sign(
             {
+              iss: "key", //key gateway
               sub: user.id,
               firstname: user.firstName,
               lastname: user.lastName

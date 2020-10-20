@@ -9,7 +9,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class CompanyResolver {
   constructor(private readonly companyService: CompanyService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Query(() => [Company])
   async companies(@Args('input') input: CompanyQuery): Promise<Company[]> {
     return this.companyService.find(input);

@@ -78,7 +78,10 @@ export class UserService {
     if (company) {
       const user = this.usersRepository.create(input);
       user.company = company;
-      await this.findEmail(input.email)
+      const email = await this.findEmail(input.email)
+      if(email){
+        throw new Error('duplicate email')
+      }
       user.password = await bcrypt.hashSync(user.password,10);
       return this.usersRepository.save(user);
     }

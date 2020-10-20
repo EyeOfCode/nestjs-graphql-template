@@ -11,9 +11,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'entity/user.entity';
 import { Company } from 'entity/company.entity';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from './config/config.module';
 
 @Module({
   imports: [
+    ConfigModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'postgres-ts',
@@ -35,6 +37,7 @@ import { AuthModule } from './auth/auth.module';
     CompanyModule,
     MicroModule,
     AuthModule,
+    ConfigModule,
   ],
   providers: [AppService],
 })

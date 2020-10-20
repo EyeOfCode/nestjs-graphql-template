@@ -9,6 +9,7 @@
 - [ ] Seeder and migration
 - [ ] Radis
 - [ ] Serialization
+- [ ] Configuration (env)
 
 ## doc
 

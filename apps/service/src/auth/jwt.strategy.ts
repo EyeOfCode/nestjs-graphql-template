@@ -8,7 +8,7 @@ import { UserService } from '../user/users.service';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(forwardRef(() => UserService))
-    private userService: UserService
+    private userService: UserService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

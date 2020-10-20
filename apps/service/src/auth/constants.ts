@@ -1,4 +1,4 @@
 export const jwtConstants = {
-    secret: 'secretKey',
+    secret: 'secretKey', // key gateway
     exp: '60m'
   };
