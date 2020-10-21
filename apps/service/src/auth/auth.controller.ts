@@ -12,4 +12,9 @@ export class AuthController {
     async login(@Payload() input: AuthInput): Promise<Auth> {
         return this.authService.login(input);
     }
+
+    @Post('/forgotpassword')
+    async forgotpassword(): Promise<string>{
+        return "test"
+    }
 }
