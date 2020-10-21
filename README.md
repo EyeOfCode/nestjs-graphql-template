@@ -8,8 +8,8 @@
 - [x] Middleware
 - [ ] Seeder and migration
 - [ ] Radis
-- [ ] Serialization
-- [ ] Configuration (env)
+- [x] Serialization
+- [x] Configuration (env)
 
 ## doc
 
