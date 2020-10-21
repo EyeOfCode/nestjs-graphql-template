@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/app
     ports:
-      - 8000:8000
+      - 3001:3001
     depends_on:
       - postgres-ts
     command: yarn start:dev:main
@@ -35,7 +35,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres
+      POSTGRES_MULTIPLE_DATABASES: postgres
       PG_DATA: /var/lib/postgresql/data
     volumes:
       - pgdata_ts:/var/lib/postgresql/data
@@ -46,6 +46,7 @@ services:
     image: 'rabbitmq:latest'
     ports:
       - 15672:15672
+
 volumes:
   pgdata_ts:
   redis-data:

@@ -14,27 +14,24 @@ export class CompanyService {
   async find(input: CompanyQuery): Promise<Company[]> {
     return this.companyRepository.find({
       where: [
-        { firstName: Like(`%${input.search || ''}%`) },
-        { lastName: Like(`%${input.search || ''}%`) },
+        { name: Like(`%${input.search || ''}%`) },
       ],
-      order: { id: 'ASC' },
+      order: { name: 'ASC' },
       skip: input.skip || 0,
       take: input.take || 10,
       relations: ['user'],
     });
   }
 
-  async findById(id: number): Promise<Company> {
-    const res = await this.companyRepository.findOne(id, {
-      relations: ['company'],
-    });
+  async findById(id: string): Promise<Company> {
+    const res = await this.companyRepository.findOne(id);
     if (!res) {
       throw new Error('user not found');
     }
     return res;
   }
 
-  async updateById(input: CompanyInput, id: number): Promise<Company> {
+  async updateById(input: CompanyInput, id: string): Promise<Company> {
     const res = await this.companyRepository.findOne(id);
     if (!res) {
       throw new Error('user not found');
