@@ -12,6 +12,10 @@ import { User } from 'entity/user.entity';
 import { Company } from 'entity/company.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from './config/config.module';
+import { TelegramModule } from './telegram/telegram.module';
+import { Telegram } from 'entity/telegram.entity';
+import { SendgridModule } from './sendgrid/sendgrid.module';
+import { EmailHistory } from 'entity/email-history';
 
 @Module({
   imports: [
@@ -23,7 +27,7 @@ import { ConfigModule } from './config/config.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      entities: [User, Company],
+      entities: [User, Company, Telegram, EmailHistory],
       synchronize: true,
     }),
     GraphQLModule.forRoot({
@@ -38,6 +42,8 @@ import { ConfigModule } from './config/config.module';
     MicroModule,
     AuthModule,
     ConfigModule,
+    TelegramModule,
+    SendgridModule,
   ],
   providers: [AppService],
 })

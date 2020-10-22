@@ -1,15 +1,18 @@
-import { ObjectType, Field, GraphQLISODateTime } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import {
   Entity,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
-import { Exclude, Type } from 'class-transformer';
+import { Exclude } from 'class-transformer';
+import { BaseEntity } from './base.entity';
 
 @ObjectType()
 @Entity()
-export class Telegram {
+export class Telegram extends BaseEntity {
+  @Field()
+  @Column()
+  id_telegram: string
+
   @Field()
   @Column({ nullable: true, unique: true })
   email: string;
@@ -20,8 +23,8 @@ export class Telegram {
   password: string;
 
   @Field()
-  @Column()
-  username: string;
+  @Column({nullable: true})
+  username?: string;
 
   @Field()
   @Column()
@@ -39,13 +42,8 @@ export class Telegram {
   @Column()
   hash: string;
 
-  @Type()
-  @CreateDateColumn({ nullable: false, name: 'created_at' })
-  @Field(() => GraphQLISODateTime)
-  createdAt: Date;
-
-  @Type()
-  @UpdateDateColumn({ nullable: false, name: 'updated_at' })
-  @Field(() => GraphQLISODateTime)
-  updatedAt: Date;
+  constructor(partial: Partial<Telegram>) {
+    super()
+    Object.assign(this, partial);
+  }
 }
