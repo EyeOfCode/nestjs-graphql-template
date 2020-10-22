@@ -13,5 +13,9 @@ export class SendGridInput {
 
   @Field()
   @IsNotEmpty()
+  callback: string
+
+  @Field()
+  @IsNotEmpty()
   type: string
 }

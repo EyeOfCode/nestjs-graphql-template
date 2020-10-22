@@ -20,4 +20,8 @@ export class EmailHistory extends BaseEntity {
     @Field()
     @Column()
     type: string
+
+    @Field({defaultValue: false})
+    @Column({default: false})
+    is_active: boolean
 }

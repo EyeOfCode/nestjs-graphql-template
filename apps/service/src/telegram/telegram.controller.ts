@@ -1,7 +1,6 @@
 import { ClassSerializerInterceptor, Controller, Get, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Payload } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
-import { Auth } from 'entity/auth.entity';
 import { Telegram } from 'entity/telegram.entity';
 import { ChangePasswordInput, ForgotPasswordInput, VerifyEmailInput } from 'input/auth.input';
 import { TelegramInput } from 'input/telegram.input';
@@ -26,7 +25,7 @@ export class TelegramController {
     }
 
     @Post('/forgotpassword')
-    async forgotPassword(@Payload() input: ForgotPasswordInput): Promise<Auth>{
+    async forgotPassword(@Payload() input: ForgotPasswordInput): Promise<string>{
        return this.telegramService.forgotPassword(input)
     }
 

@@ -78,10 +78,14 @@ export class TelegramService {
         return this.telegramRepository.save(data);
     }
 
-    async forgotPassword(input: ForgotPasswordInput): Promise<Auth>{
+    async forgotPassword(input: ForgotPasswordInput): Promise<string>{
       const checkEmail = await this.findEmail(input.email)
       if(checkEmail){
-        return this.sendgridService.sendEmail({id: checkEmail.id, type: "forgot-password", email: checkEmail.email})
+        const sendMail = await this.sendgridService.sendEmail({id: checkEmail.id, type: "forgot-password", email: checkEmail.email, callback: input.callback})
+        if(sendMail){
+          return "Success to send email"
+        }
+        throw new Error('Send email')
       }
       throw new NotFoundException('user not found')
     }
@@ -89,12 +93,14 @@ export class TelegramService {
     async validatorEmail(input: VerifyEmailInput): Promise<Telegram>{
       const checkToken = await this.sendgridService.findToken(input.token)
       if(!checkToken){
-        throw new NotFoundException('token not found')
+        throw new NotFoundException('token not found or token used')
       }
       try{
         const accessToken = await this.jwtService.verifyAsync(input.token);
         if(accessToken.sub){
-          return this.findById(accessToken.sub)
+          const user = await this.findById(accessToken.sub)
+          await this.sendgridService.activeEmail(checkToken.send_email)
+          return user;
         }
         throw new NotFoundException('user not found')
       }catch(err){
